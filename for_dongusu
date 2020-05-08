@@ -1,0 +1,62 @@
+//karaşimşek ve iki butonla for döngüsü, if/else ve seri haberleşme ile debugging yapılarını tanımak adına bir örnek
+
+#define but1 5 // but1 isimli birinci butonumuzu 5 nolu pine tanımladık.
+#define but2 6 // but2 isimli birinci butonumuzu 5 nolu pine tanımladık.
+
+int ledler[] = {2,3,4};
+int butonlar[] = {5,6};
+boolean a = 0; //boolean değişkeni kullandık çünkü burada 0 veya 1 mantık kullanıyoruz başka ihtimal yok.
+boolean b = 0; //boolean değişkeni kullandık çünkü burada 0 veya 1 mantık kullanıyoruz başka ihtimal yok.
+
+void setup() {
+  for(int i=0; i<4; i++)
+  {
+   pinMode(ledler[i], OUTPUT);  // for döngüsüyle setup kısmından pinlerin I/O ayarlamalarını yaptık.
+  }
+   for(int t=0; t<2; t++)
+   { 
+   pinMode(butonlar[t], INPUT); // butonları INPUT olarak ayalarmak için for döngüsü oluşturduk.
+   }
+Serial.begin(9600); //seri haberleşmeyi başlatıyoruz.
+}
+
+void loop() {
+
+a = digitalRead(but1); // a isimli bir int tanımlıyoruz a int'i buton1'deki veriyi okuyacak.
+b = digitalRead(but2); // b isimli bir int tanımlıyoruz b int'i buton2'deki veriyi okuyacak.
+
+if(a == 1){
+  for(int i=0; i<3; i++)
+  {
+    digitalWrite(ledler[i], HIGH);
+    delay(1000);
+    digitalWrite(ledler[i], LOW);
+    Serial.println(i);
+    }
+    Serial.println("------------------------");
+    delay(50);
+for(int i=2; i>-1; i--)
+{
+  digitalWrite(ledler[i], HIGH);
+  delay(1000);
+  digitalWrite(ledler[i], LOW);
+  Serial.println(i);
+  }
+ Serial.println("------------------------");
+ delay(50);
+}
+else if(b == 1){
+  digitalWrite(2, HIGH); //2. pin'e bağlı led'i define'sız yazdık.
+  Serial.println("1. Led yandi");
+  delay(50);
+}
+else
+  {
+  for(int i=0; i<3; i++)
+  {
+  digitalWrite(ledler[i], LOW);
+  Serial.println("Hicbir Butona Basilmadi");
+  delay(100);
+  }
+  }
+}
